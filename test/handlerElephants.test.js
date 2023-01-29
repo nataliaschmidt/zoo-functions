@@ -17,6 +17,7 @@ describe('Testes da função HandlerElephants', () => {
     expect(handlerElephants('location')).toBe('NW');
     expect(handlerElephants('popularity')).toBe(5);
     expect(handlerElephants('availability')).toEqual(['Friday', 'Saturday', 'Sunday', 'Tuesday']);
+    expect(handlerElephants({})).toBe('Parâmetro inválido, é necessário uma string');
   });
   it('Testa a linha 18 da função computeData, em caso de nulo', () => {
     expect(handlerElephants('null')).toBe(null);
