@@ -95,22 +95,24 @@ const NameAndSexAndSort = (objeto) => species.reduce((acc, specie) => {
   return acc;
 }, {});
 
+const refactoringIf = (options) => {
+  if (options.sex) {
+    if (options.sorted) {
+      return NameAndSexAndSort(options);
+    }
+    return NameAndSex(options);
+  }
+  if (options.sorted) {
+    return sortedTrue();
+  }
+  return includeNames();
+};
+
 const getAnimalMap = (options) => {
   if (!options || !options.includeNames) {
     return allAnimals();
   }
-  if (options.includeNames === true && !options.sorted && !options.sex) {
-    return includeNames();
-  }
-  if (options.includeNames === true && options.sorted === true && !options.sex) {
-    return sortedTrue();
-  }
-  if (options.includeNames === true && !options.sorted && options.sex) {
-    return NameAndSex(options);
-  }
-  if (options.includeNames === true && options.sorted === true && options.sex) {
-    return NameAndSexAndSort(options);
-  }
+  return refactoringIf(options);
 };
 
 // const teste2 = getAnimalMap({ includeNames: true, sex: 'female', sorted: true });
@@ -118,3 +120,19 @@ const getAnimalMap = (options) => {
 // console.log(Object.values(teste2)[0]);
 
 module.exports = getAnimalMap;
+
+// if (!options || !options.includeNames) {
+//   return allAnimals();
+// }
+// if (!options.sorted && !options.sex) {
+//   return includeNames();
+// }
+// if (options.sorted && !options.sex) {
+//   return sortedTrue();
+// }
+// if (!options.sorted && options.sex) {
+//   return NameAndSex(options);
+// }
+// if (options.sorted && options.sex) {
+//   return NameAndSexAndSort(options);
+// }
