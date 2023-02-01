@@ -59,6 +59,6 @@ const getEmployeesCoverage = (obj) => {
   return findNameAndLastname(obj);
 };
 
-console.log(getEmployeesCoverage({ id: 'Id inválido' }));
+// console.log(getEmployeesCoverage({ id: 'Id inválido' }));
 
 module.exports = getEmployeesCoverage;
