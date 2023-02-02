@@ -1,8 +1,12 @@
+// const { hours } = require('../data/zoo_data');
 const data = require('../data/zoo_data');
 
 const { species } = data;
-//  console.log(hours);
-//  console.log(hours[parameterDay].open);
+
+const animals = ['lions', 'tigers', 'bears', 'penguins',
+  'otters', 'frogs', 'snakes', 'elephants', 'giraffes'];
+const daysOfTheWeek = ['Tuesday', 'Wednesday', 'Thursday',
+  'Friday', 'Saturday', 'Sunday', 'Monday'];
 
 const animalsInExibition = (day) => {
   const animalsDay = species.filter((specie) => specie.availability.includes(day));
@@ -11,73 +15,103 @@ const animalsInExibition = (day) => {
 };
 // console.log(animalsInExibition('Wednesday'));
 
-const Tuesday = {
+const tuesday = {
   Tuesday: {
     officeHour: 'Open from 8am until 6pm',
     exhibition: animalsInExibition('Tuesday'),
   },
 };
 
-const Wednesday = {
+const wednesday = {
   Wednesday: {
     officeHour: 'Open from 8am until 6pm',
     exhibition: animalsInExibition('Wednesday'),
   },
 };
 
-const Thursday = {
+const thursday = {
   Thursday: {
     officeHour: 'Open from 10am until 8pm',
     exhibition: animalsInExibition('Thursday'),
   },
 };
 
-const Friday = {
+const friday = {
   Friday: {
     officeHour: 'Open from 10am until 8pm',
     exhibition: animalsInExibition('Friday'),
   },
 };
 
-const Saturday = {
+const saturday = {
   Saturday: {
     officeHour: 'Open from 8am until 10pm',
     exhibition: animalsInExibition('Saturday'),
   },
 };
 
-const Sunday = {
+const sunday = {
   Sunday: {
     officeHour: 'Open from 8am until 8pm',
     exhibition: animalsInExibition('Sunday'),
   },
 };
 
-const Monday = {
+const monday = {
   Monday: { officeHour: 'CLOSED',
     exhibition: 'The zoo will be closed!' },
 };
 
 const weekDays = () => {
-  const days = { ...Tuesday,
-    ...Wednesday,
-    ...Thursday,
-    ...Friday,
-    ...Saturday,
-    ...Sunday,
-    ...Monday };
+  const days = { ...tuesday,
+    ...wednesday,
+    ...thursday,
+    ...friday,
+    ...saturday,
+    ...sunday,
+    ...monday };
   return days;
 };
 // console.log(weekDays());
 
 // --------------------------- // --------------------//
 
+const getAnimalsDay = (animalDay) => {
+  const animalsDay = species.find((specie) => specie.name === animalDay).availability;
+  return animalsDay;
+};
+// console.log(getAnimalsDay('lions'));
+
+const selectDayWeek = (oneDay) => {
+  const days = {
+    Monday: monday,
+    Tuesday: tuesday,
+    Wednesday: wednesday,
+    Thursday: thursday,
+    Friday: friday,
+    Saturday: saturday,
+    Sunday: sunday,
+  };
+
+  const selectDay = days[oneDay];
+  return selectDay;
+};
+
+// console.log(selectDayWeek('Monday'));
+
 const getSchedule = (scheduleTarget) => {
   if (!scheduleTarget) {
     return weekDays();
   }
+  if (animals.includes(scheduleTarget)) {
+    return getAnimalsDay(scheduleTarget);
+  }
+  if (daysOfTheWeek.includes(scheduleTarget)) {
+    return selectDayWeek(scheduleTarget);
+  }
+  return weekDays();
 };
 
-console.log(getSchedule());
+// console.log(getSchedule('Saturday'));
 
 module.exports = getSchedule;
